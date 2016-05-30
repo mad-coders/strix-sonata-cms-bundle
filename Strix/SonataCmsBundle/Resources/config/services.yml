@@ -1,0 +1,38 @@
+parameters:
+#    strix_sonata_cms.example.class: Strix\SonataCmsBundle\Example
+
+services:
+    strix.form.type.strix_image:
+        class: Strix\SonataCmsBundle\Form\StrixImageType
+        tags:
+            - { name: form.type, alias: strix_image }
+
+    strix.form.type.strix_file:
+        class: Strix\SonataCmsBundle\Form\StrixFileType
+        tags:
+            - { name: form.type, alias: strix_file }
+
+    strix.form.type.strix_file_array:
+        class: Strix\SonataCmsBundle\Form\StrixFileArrayType
+        tags:
+            - { name: form.type, alias: strix_file_array }
+
+    strix.routing_loader:
+        class: Strix\SonataCmsBundle\Routing\Loader
+        tags:
+            - { name: routing.loader }
+        calls:
+            - [ setContainer, [@service_container] ]
+
+    strix.util.slug_walker:
+        class: Strix\SonataCmsBundle\Util\SlugWalker
+        calls:
+            - [ setEntityManager, [@doctrine.orm.entity_manager] ]
+            - [ setEntityName, [%strix_sonata_cms.tree_entity%] ]
+
+    strix.twig.extension:
+        class: Strix\SonataCmsBundle\Twig\StrixSonataCmsExtension
+        tags:
+            - { name: twig.extension }
+        calls:
+            - [ setContainer, [@service_container] ]

@@ -1,0 +1,145 @@
+{% block strix_image_widget %}
+    {% spaceless %}
+        {% if value != "" %}
+        <img src="{{ asset(value) }}" style="max-width: 100px; max-height: 100px;">
+        <br>
+        {% endif %}
+        {{ block('form_widget') }}
+    {% endspaceless %}
+{% endblock %}
+
+{% block strix_file_widget %}
+    {% spaceless %}
+        {% if value != "" %}
+            uploaded file: {{ value }}
+            {# todo: display mimetype image #}
+            {#<img src="{{ asset(value) }}" style="max-width: 100px; max-height: 100px;">#}
+
+        {% endif %}ddd
+        <input type="{{ type }}" {{ block('widget_attributes') }} {% if value is not empty %}value="{{ value }}" {% endif %}/>
+        {#{{ block('form_widget') }}#}
+    {% endspaceless %}
+{% endblock %}
+
+
+{#
+
+{% block autotrade_image_widget %}
+    <div id="autotrade_image_widget_{{ id }}">
+        {% if image %}
+            {% if image|slice(0, 7) == 'http://' or image|slice(0, 8) == 'https://' %}
+                <img src="{{ image }}" class="uploaded_image_{{ id }}"/>
+            {% else %}
+                &#123;&#35;<img src="{{ asset('uploads/images/' ~ image) | apply_filter('admin_thumb') }}" class="uploaded_image_{{ id }}"/>&#35;&#125;
+            {% endif %}
+            <br>
+        {% endif %}
+
+        {{ block('hidden_widget') }}
+
+        <input type="file" name="file" id="autotrade_image_file_{{ id }}"> <input type="button" id="autotrade_image_button_{{ id }}" value="{% if image %}Re-upload{% else %}Upload{% endif %}" class="btn">
+
+        <script>
+            $(function(){
+                $('#autotrade_image_button_{{ id }}').click(function(){
+                    console.log('xxx');
+                    if ($('#autotrade_image_file_{{ id }}').val() != '') {
+                        //flip images
+                        realFile = $('#autotrade_image_file_{{ id }}');
+                        clonedFile = realFile.clone(true);
+                        realFile.hide();
+                        clonedFile.insertAfter(realFile);
+
+                        //create form & submit
+                        $('<form>')
+                                .attr('method', 'post')
+                                .attr('enctype', 'multipart/form-data')
+                                .attr('action', '{{ path('strix_helper_image_upload') }}')
+                                .append(realFile)
+                                .ajaxForm({ success: function(data){
+                                    if (data == 'ERROR') {
+                                        alert('Sorry, internal server error happened');
+                                        return;
+                                    }
+
+                                    $('#{{ id }}').val(data);
+
+                                    $('.uploaded_image_{{ id }}').remove();
+
+                                    //just add it on first time
+                                    img = $('<img>')
+                                            .attr('src', '{{ asset('uploads/images') }}/' + data)
+                                            .addClass('uploaded_image_{{ id }}')
+                                            .attr('width', 80)
+                                            .prependTo('#autotrade_image_widget_{{ id }}')
+                                            .after('<br>');
+                                }
+                                })
+                                .submit();
+                    }
+                })
+            })
+        </script>
+    </div>
+{% endblock autotrade_image_widget %}
+
+#}
+
+{% block strix_file_array_widget %}
+    <div id="strix_file_array_widget_{{ id }}">
+        {% if files %}
+            <img alt="files" />
+            {#{% if image|slice(0, 7) == 'http://' or image|slice(0, 8) == 'https://' %}
+                <img src="{{ image }}" class="uploaded_image_{{ id }}"/>
+            {% else %}
+                <img src="{{ asset(image) }}" height="100" width="100" class="uploaded_image_{{ id }}"/>
+            {% endif %}#}
+            <br>
+        {% endif %}
+
+        {{ block('hidden_widget') }}
+
+        <input type="file" name="file" id="strix_file_array_file_{{ id }}"> <input type="button" id="strix_file_array_button_{{ id }}" value="{% if files %}Re-upload{% else %}Upload{% endif %}" class="btn">
+
+        <script>
+            $(function(){
+                $('#strix_file_array_button_{{ id }}').click(function(){
+                    if ($('#strix_file_array_file_{{ id }}').val() != '') {
+                        //flip images
+                        realFile = $('#strix_file_array_file_{{ id }}');
+                        clonedFile = realFile.clone(true);
+                        realFile.hide();
+                        clonedFile.insertAfter(realFile);
+
+                        //create form & submit
+                        $('<form>')
+                                .attr('method', 'post')
+                                .attr('enctype', 'multipart/form-data')
+                                .attr('action', '{{ path('strix_helper_file_upload') }}')
+                                .append(realFile)
+                                .ajaxForm({ success: function(data){
+                                    if (data == 'ERROR') {
+                                        alert('Sorry, internal server error happened');
+                                        return;
+                                    }
+
+                                    $('#{{ id }}').val(data);
+
+                                    $('.uploaded_image_{{ id }}').remove();
+
+                                    //just add it on first time
+                                    img = $('<a>')
+                                            .attr('href', '/'+data).html(data)
+                                            .addClass('strix_file_array_{{ id }}')
+//                                            .attr('width', 80)
+                                            .prependTo('#strix_file_array_widget_{{ id }}')
+                                            .after('<br>');
+                                }
+                                })
+                                .submit();
+                    }
+                })
+            })
+        </script>
+    </div>
+{% endblock strix_file_array_widget %}#}

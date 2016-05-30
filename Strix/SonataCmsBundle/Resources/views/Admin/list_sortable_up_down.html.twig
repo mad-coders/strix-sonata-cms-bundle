@@ -1,0 +1,7 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+
+{%- block field %}
+    <a href="{{ admin.generateUrl(admin.normalizedCode ~ '_sortable_up', { id: object.id }) }}"><i class="icon-arrow-up"></i></a>
+
+    <a href="{{ admin.generateUrl(admin.normalizedCode ~ '_sortable_down', { id: object.id }) }}"><i class="icon-arrow-down"></i></a>
+{% endblock field -%}

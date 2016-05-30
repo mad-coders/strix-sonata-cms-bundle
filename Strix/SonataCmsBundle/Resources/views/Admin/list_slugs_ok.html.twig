@@ -1,0 +1,7 @@
+{% extends '@SonataAdmin/CRUD/list_boolean.html.twig' %}
+
+{% block field %}
+    {% for language in admin.getCmsLanguages(true) %}
+        <span class="label {% if admin.verifySlug(object, language.code) %}label-success{% else %}label-danger{% endif %}">{{ language.code }}</span>
+    {% endfor %}
+{% endblock %}

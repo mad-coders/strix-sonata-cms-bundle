@@ -1,0 +1,9 @@
+{% extends '@SonataAdmin/CRUD/base_list_field.html.twig' %}
+
+{%- block field %}
+    {% if object.parent and object.parent.children[0] != object %}
+        <a href="{{ admin.generateUrl(admin.normalizedCode ~ '_up', { id: object.id }) }}">
+            <i class="fa fa-caret-up"></i>
+        </a>
+    {% endif %}
+{% endblock field -%}

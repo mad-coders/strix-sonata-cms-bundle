@@ -1,0 +1,13 @@
+{
+    "name": "strix/sonata-cms-bundle",
+    "description": "A cms bundle, built around Sonata Admin project",
+    "require": {
+        "sonata-project/admin-bundle": "*"
+    },
+    "license": "MIT",
+    "minimum-stability": "dev",
+    "autoload": {
+        "psr-0": { "Strix\\SonataCmsBundle": "" }
+    },
+    "target-dir": "Strix//SonataCmsBundle"
+}
